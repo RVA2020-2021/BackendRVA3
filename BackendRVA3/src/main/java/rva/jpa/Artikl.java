@@ -3,6 +3,9 @@ package rva.jpa;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,7 +32,7 @@ public class Artikl implements Serializable {
 	private String proizvodjac;
 
 	//bi-directional many-to-one association to StavkaPorudzbine
-	@OneToMany(mappedBy="artikl")
+	@OneToMany(mappedBy="artikl", cascade = {CascadeType.DETACH, CascadeType.REMOVE})
 	@JsonIgnore
 	private List<StavkaPorudzbine> stavkaPorudzbines;
 
